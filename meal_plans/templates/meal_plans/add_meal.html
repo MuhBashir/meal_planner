@@ -1,0 +1,16 @@
+{% extends 'meal_plans/base.html' %} {% block page_header %}
+<div class="mt-5 p-3 mb-3 bg-dark text-light rounded">
+  <h2>Add Meal</h2>
+</div>
+{% endblock page_header %} {% block content %} {% load bootstrap5 %}
+<form method="post" class="form-control mb-4 pb-3">
+  {% csrf_token %} {% bootstrap_form form %}
+  <button type="submit" class="btn btn-dark">Add Meal</button>
+</form>
+<p class="pr-2">
+  Need to search some meals
+  <a href="{%  url 'meal_plans:search' %}" class="btn btn-secondary bt-md"
+    >Search meal</a
+  >
+</p>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'meal_plans/base.html' %} {% block page_header %}
+
+<div class="pb-2 mb-5 border-bottom p-3 bg-dark text-white rounded mt-4">
+  <h2>Delete Meal Plan</h2>
+</div>
+{% endblock page_header %} {% block content %}
+<p class="text-light">
+  Are you sure you want to delete the meal plan "{{ meal_plan.name }}"?
+</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-dark ml-2">Delete</button>
+  <a
+    href="{% url 'meal_plans:meal_plan_detail' meal_plan.id %}"
+    class="btn mr-5 btn-dark"
+    >Cancel</a
+  >
+</form>
+{% endblock %}

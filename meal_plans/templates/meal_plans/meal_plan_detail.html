@@ -1,0 +1,33 @@
+{% extends 'meal_plans/base.html' %} {% block page_header %}
+
+<div class="pb-2 mb-2 border-bottom p-3 bg-dark text-white rounded mt-4">
+  <h2>Meal Plan Details</h2>
+</div>
+
+{% endblock page_header %} {% block content %}
+
+  <div class="bg-light p-2">
+  
+  <p >Meal Name: {{ meal_plan.name }}</p>
+  <p>Start Date: {{ meal_plan.start_date }}</p>
+  <p>End Date: {{ meal_plan.end_date }}</p>
+  </div>
+  <ul class="list-group p-3">
+    {% for meal in meal_plan.meal_set.all %}
+    <li class="list-group-item row">
+      <span>{{ meal.meal_name }}</span>
+      
+        <a href="{% url 'meal_plans:recipe_create' meal_id=meal.id %}"
+          class="btn btn-success  col-sm-3">Add Recipe</a
+        >
+      
+      <a href="{% url 'meal_plans:meal_update' meal_id=meal.id %}" class="btn btn-success  col-sm-3">Update</a>
+      <a href="{% url 'meal_plans:meal_delete' meal_id=meal.id %}" class="btn btn-success  col-sm-3">Delete</a>
+    </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'meal_plans:add_meal' meal_plan_id=meal_plan.id %}"
+    class="btn btn-info">Add Meal</a
+  >
+</div>
+{% endblock %}

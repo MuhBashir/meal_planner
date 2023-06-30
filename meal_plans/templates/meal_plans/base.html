@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meal Planner App</title>
+    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+  </head>
+  <body class="bg-success">
+    <header>
+      <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4 border">
+        <a
+          class="navbar-brand display-6 mark bg-dark text-light"
+          href="{% url 'meal_plans:index'%}"
+        >
+          Meal Planner App</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'meal_plans:meal_plan_list'%}">
+                Meal Plans</a
+              >
+            </li>
+          </ul>
+        </div>
+        <ul class="navbar-nav">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <span class="navbar-text mb-1 d-block"
+              >Hello, {{ user.username }}.</span
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'users:profile' %}" class="nav-link"
+              >Update profile</a
+            >
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container" role="main">
+      {% block page_header %}
+      <div class="pb-2 mb-2 border-bottom p-5 bg-dark text-white rounded mt-4">
+        <h1 class="display-3">Plan your meals</h1>
+        <p class="lead">
+          Meal planning app helps you plan your meals through out the week by
+          subscribing to a plan, selecting a meals based on the meal time also
+          can search for a specific meals using the search button.
+        </p>
+
+        <a
+          class="btn btn-lg btn-primary mt-5 mb-4"
+          href="{% url 'users:register' %}"
+          role="button"
+          >Register &raquo;</a
+        >
+      </div>
+      {% endblock page_header %}
+      <div>{% block content %} {% endblock %}</div>
+    </main>
+    <footer>
+      <p>&copy; 2023 Meal Planner App. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

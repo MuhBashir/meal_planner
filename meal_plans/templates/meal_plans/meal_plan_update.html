@@ -1,0 +1,10 @@
+{% extends 'meal_plans/base.html' %} {% block page_header %}
+<div class="pb-2 mb-2 border-bottom p-3 bg-dark text-white rounded mt-4">
+  <h2>Update Meal Plan</h2>
+</div>
+{% endblock page_header %} {% block content %} {% load bootstrap5 %}
+<form method="post" class="form-control">
+  {% csrf_token %} {% bootstrap_form form %}
+  <button type="submit" class="btn btn-dark text-light">Update</button>
+</form>
+{% endblock %}

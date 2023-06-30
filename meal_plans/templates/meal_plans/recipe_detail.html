@@ -1,0 +1,14 @@
+{% extends 'meal_plans/base.html' %} {% block page_header %}
+<div class="bg-light">
+  <div class="pb-2 mb-2 border-bottom p-3 bg-dark text-white rounded mt-4">
+    <h2>Recipe Detail</h2>
+  </div>
+  {% endblock page_header %} {% block content %}
+  <h3>{{ recipe.name }}</h3>
+  <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+  <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
+  <a href="{% url 'meal_plans:recipe_update' recipe_id=recipe.id %}">Update</a>
+  <a href="{% url 'meal_plans:recipe_delete' recipe_id=recipe.id %}">Delete</a>
+</div>
+
+{% endblock %}

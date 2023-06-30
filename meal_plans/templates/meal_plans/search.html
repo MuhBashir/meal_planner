@@ -1,0 +1,51 @@
+<form method="GET">
+  <input type="text" name="query" placeholder="Enter your search query" />
+  <button type="submit">Search</button>
+</form>
+
+{% if result %}
+<h2>Search Results</h2>
+<div>
+  <div>
+    <img src="{{ result.recipe.image }}" alt="{{ result.recipe.label }}" />
+  </div>
+  <h3>{{ result.recipe.label }}</h3>
+  <h3>ingredients</h3>
+  <ul>
+    {% for ingredient in result.recipe.ingredientLines %}
+    <li>{{ ingredient }}</li>
+    {% endfor %}
+  </ul>
+
+  <h3>Instructions</h3>
+  {% for instruction in result.recipe.ingredients %}
+  <span>{{ instruction.text }}</span>, {% endfor %}
+  <h3>Health Benifits</h3>
+  <ul>
+    {% for health in result.recipe.healthLabels %}
+    <li>{{ health }}</li>
+    {% endfor %}
+  </ul>
+  <h3>Meal Time</h3>
+  {% for mealTime in result.recipe.mealType %}
+  <p>{{ mealTime }}</p>
+  {% endfor %}
+</div>
+<p>Need to search again <a href="{% url 'meal_plans:search' %}">Search</a></p>
+<p>
+  Need to add it to the meal
+  <a href="{% url 'meal_plans:meal_plan_list' %}">Create meal plan</a>
+</p>
+{% elif results %}
+<p>
+  The recipe you are looking was not found but you can search among the
+  following suggestions
+</p>
+<ul>
+  {% for result in results %}
+  <li>{{ result.recipe.label }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Enter the name of the recipe you want to search</p>
+{% endif %}

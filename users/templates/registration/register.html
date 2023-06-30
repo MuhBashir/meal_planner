@@ -1,0 +1,12 @@
+{% extends 'meal_plans/base.html' %} {% block page_header %}
+<h2>Register your account.</h2>
+{% endblock page_header %} {% block content %} {% load bootstrap5 %}
+<form
+  method="post"
+  class="form-control bg-primary"
+  action="{% url 'users:register' %}"
+>
+  {% csrf_token %} {% bootstrap_form form %}
+  <button type="submit">Register</button>
+</form>
+{% endblock %}

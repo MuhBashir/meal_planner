@@ -1,0 +1,9 @@
+{% extends 'meal_plans/base.html' %} {% block page_header %}
+
+<h2>Edit Profile</h2>
+{% endblock page_header %} {% block content %} {% load bootstrap5 %}
+<form method="post" class="form-control" action="{% url 'users:login' %}">
+  {% csrf_token %} {% bootstrap_form form %}
+  <button type="submit">Update Profile</button>
+</form>
+{% endblock %}

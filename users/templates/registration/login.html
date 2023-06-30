@@ -1,0 +1,18 @@
+{% extends 'meal_plans/base.html' %} {% block page_header %}
+<h2>Log in to your account.</h2>
+{% endblock page_header %} {% block content %} {% load bootstrap5 %}
+<form
+  method="post"
+  class="form-control bg-primary"
+  action="{% url 'users:login' %}"
+>
+  {% csrf_token %} {% bootstrap_form form %} {% buttons %}
+  <button type="submit">Login</button>
+  {% endbuttons %}
+  <input
+    type="hidden"
+    name="next"
+    value="{% url 'meal_plans:meal_plan_list' %}"
+  />
+</form>
+{% endblock %}
