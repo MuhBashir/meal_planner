@@ -1,14 +1,41 @@
 {% extends 'meal_plans/base.html' %} {% block page_header %}
-<div class="bg-light">
-  <div class="pb-2 mb-2 border-bottom p-3 bg-dark text-white rounded mt-4">
-    <h2>Recipe Detail</h2>
+<div class="row">
+  <div class="">
+    <div class="bg-dark text-white p-2">
+      <h2>Recipe Detail</h2>
+    </div>
+
+    {% endblock page_header %} {% block content %}
+
+    <div class="col bg-light p-3 m-3">
+      <div class="mb-5">
+        <h2>{{ recipe.meal.meal_name }}</h2>
+        <p><strong>Ingredients:</strong></p>
+        <p>{{ recipe.ingredients }}</p>
+        <p><strong>Instructions:</strong></p>
+        <p>{{ recipe.instructions }}</p>
+      </div>
+      <div class="d-flex justify-content-between">
+        <a
+          href="{% url 'meal_plans:recipe_update' recipe_id=recipe.id %}"
+          class="btn btn-outline-success"
+          >Edit Recipe</a
+        >
+        <a
+          href="{% url 'meal_plans:recipe_delete' recipe_id=recipe.id %}"
+          class="btn btn-outline-success"
+          >Delete Recipe</a
+        >
+      </div>
+    </div>
+    <div class="col p-3 m-3">
+      <a
+        href="{% url 'meal_plans:meal_list' %}"
+        class="btn btn-outline-light d-block"
+        >Back to Meal list</a
+      >
+    </div>
   </div>
-  {% endblock page_header %} {% block content %}
-  <h3>{{ recipe.name }}</h3>
-  <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
-  <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
-  <a href="{% url 'meal_plans:recipe_update' recipe_id=recipe.id %}">Update</a>
-  <a href="{% url 'meal_plans:recipe_delete' recipe_id=recipe.id %}">Delete</a>
 </div>
 
 {% endblock %}

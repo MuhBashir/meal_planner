@@ -1,10 +1,21 @@
 {% extends 'meal_plans/base.html' %} {% block page_header %}
-<div class="pb-2 mb-2 border-bottom p-3 bg-dark text-white rounded mt-4">
-  <h2>Create a Meal Plan</h2>
+
+<div class="row bg-dark">
+  <div class="col bg-success p-5">
+    <div class="p-3 bg-dark text-white text-center mb-5">
+      <h2>Create a Meal Plan</h2>
+    </div>
+    {% endblock page_header %} {% block content %} {% load bootstrap5 %}
+    <form
+      method="post"
+      class="form-control p-5 mb-5"
+      action="{% url 'meal_plans:meal_plan_create' %}"
+    >
+      {% csrf_token %} {% bootstrap_form form %}
+      <button type="submit" class="btn btn-outline-dark d-block w-200">
+        Create
+      </button>
+    </form>
+    {% endblock %}
+  </div>
 </div>
-{% endblock page_header %} {% block content %} {% load bootstrap5 %}
-<form method="post" class="form-control">
-  {% csrf_token %} {% bootstrap_form form %}
-  <button type="submit" class="btn btn-dark text-light mt-4">Create</button>
-</form>
-{% endblock %}

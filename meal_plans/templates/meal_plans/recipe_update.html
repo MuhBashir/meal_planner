@@ -1,6 +1,6 @@
 {% extends 'meal_plans/base.html' %} {% block content %}
-<h2>Update Recipe</h2>
-<form method="POST" action="{% url 'meal_plans:recipe_update' meal.id %}">
+<h2 class="">Update Recipe</h2>
+<form method="POST" class="form-control">
   {% csrf_token %} {{ form.as_p }}
   <button type="submit">Save</button>
 </form>

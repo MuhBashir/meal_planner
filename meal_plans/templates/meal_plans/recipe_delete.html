@@ -1,7 +1,7 @@
 {% extends 'meal_plans/base.html' %} {% block content %}
 <h2>Delete Recipe</h2>
 <p>Are you sure you want to delete the recipe for {{ meal.name }}?</p>
-<form method="POST" action="{% url 'meal_plans:recipe_delete' meal.id %}">
+<form method="POST">
   {% csrf_token %}
   <button type="submit">Delete</button>
 </form>

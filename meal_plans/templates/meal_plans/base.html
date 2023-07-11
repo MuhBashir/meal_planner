@@ -7,61 +7,58 @@
     {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
   </head>
   <body class="bg-success">
-    <header>
-      <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4 border">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4 border">
+      <div class="container-fluid">
         <a
-          class="navbar-brand display-6 mark bg-dark text-light"
-          href="{% url 'meal_plans:index'%}"
-        >
-          Meal Planner App</a
+          href="{% url 'meal_plans:index' %}"
+          class="navbar-brand text-uppercase text-dark font-italic"
+          >Meal Planner</a
         >
         <button
           class="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarCollapse"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
           aria-controls="navbarCollapse"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'meal_plans:meal_plan_list'%}">
+              <a
+                class="nav-link active"
+                href="{% url 'meal_plans:meal_list' %}"
+              >
                 Meal Plans</a
               >
             </li>
           </ul>
+          <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <span class="navbar-text d-block"}"
+                >Hello, {{ user.username }}.</span
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+            </li>
+            {% endif %}
+          </ul>
         </div>
-        <ul class="navbar-nav">
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <span class="navbar-text mb-1 d-block"
-              >Hello, {{ user.username }}.</span
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'users:profile' %}" class="nav-link"
-              >Update profile</a
-            >
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'users:register' %}">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
-          </li>
-          {% endif %}
-        </ul>
-      </nav>
-    </header>
-
+      </div>
+    </nav>
     <main class="container" role="main">
       {% block page_header %}
       <div class="pb-2 mb-2 border-bottom p-5 bg-dark text-white rounded mt-4">
@@ -81,9 +78,12 @@
       </div>
       {% endblock page_header %}
       <div>{% block content %} {% endblock %}</div>
+
+      
     </main>
-    <footer>
+     <!-- <footer id="footer" class="bg-dark">
       <p>&copy; 2023 Meal Planner App. All rights reserved.</p>
-    </footer>
+    </footer> -->
+   
   </body>
 </html>

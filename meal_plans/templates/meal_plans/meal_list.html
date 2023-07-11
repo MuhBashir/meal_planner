@@ -1,16 +1,49 @@
 {% extends 'meal_plans/base.html' %} {% block page_header %}
-<h1>Topics</h1>
-{% endblock page_header %} {% block content %} {% if meals %}
-<ul>
-  {% for meal in meals %}
-  <li>{{ meal.meal_name }}</li>
-  {% endfor %}
-</ul>
-{% else %}
-<p>No meals found.</p>
-{% endif %}
+<div class="container">
+  <div class="row text-center pb-2 bg-dark text-white mb-5">
+    <h1>Meal Info</h1>
+  </div>
 
-<a href="{% url 'meal_plans:meal_plan_create' %}">Create New Meal Plan</a>
-<a href="{% url 'meal_plans:meal_plan_list' %}">Back to Meal Plan</a>
+  <div class="row">
+    {% endblock page_header %} {% block content %} {% if meal_groups %}
+    <table class="table table-hover table-dark pb-3">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Breakfast</th>
+          <th scope="col">Lunch</th>
+          <th scope="col">Dinner</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for meals in meal_groups %}
+        <tr>
+          <th scope="row">{{ meals.date }}</th>
+          {% for meal in meals.meals %}
+          <td>{{ meal }}</td>
+          {% endfor %}
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% else %}
+    <p>No meals found.</p>
+    {% endif %}
+    <div class="d-flex justify-content-between">
+      <a
+        href="{% url 'meal_plans:meal_plan_create' %}"
+        class="btn btn-outline-dark"
+        >Create New Meal Plan</a
+      >
+      <a
+        href="{% url 'meal_plans:meal_plan_list' %}"
+        class="btn btn-outline-dark"
+        >Back to Meal Plan</a
+      >
+    </div>
+  </div>
+</div>
 
 {% endblock %}

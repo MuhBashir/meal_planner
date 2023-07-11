@@ -1,45 +1,49 @@
 {% extends 'meal_plans/base.html' %} {% block page_header %}
-<div class="mt-2 p-2 bg-success text-white rounded">
+<div class="row mt-2 p-2 bg-dark text-white rounded">
   <h1>Meal Plans</h1>
   <p>Here are the list of plans you added</p>
 </div>
 {% endblock page_header %} {% block content %} {% if meal_plans %}
-<ul class="list-group mt-4">
-  {% for meal_plan in meal_plans %}
-  <li class="list-group-item list-group-item-success p-5 mb-4">
-    <h3>{{ meal_plan.name }}</h3>
-    <p>Start Date: {{ meal_plan.start_date }}</p>
-    <p>End Date: {{ meal_plan.end_date }}</p>
-    <div class="bg-dark row mt-5 mb-2">
-      <a
-        href="{% url 'meal_plans:add_meal' meal_plan.id %}"
-        class="btn btn-success d-block col-sm-3"
-        >Add Meal</a
-      >
-      <a
-        href="{% url 'meal_plans:meal_plan_detail' meal_plan.id %}"
-        class="btn btn-success d-block col-sm-3 ml-2"
-        >View Details</a
-      >
-      <a
-        href="{% url 'meal_plans:meal_plan_update' meal_plan.id %}"
-        class="btn btn-success d-block col-sm-3"
-        >Update</a
-      >
-      <a
-        href="{% url 'meal_plans:meal_plan_delete' meal_plan.id %}"
-        class="btn btn-success d-block col-sm-3"
-        >Delete</a
-      >
-    </div>
-  </li>
-  {% endfor %}
-</ul>
+
+<div class="row">
+  <ul class="list-group mt-4">
+    {% for meal_plan in meal_plans %}
+    <li class="list-group-item list-group-item-success p-5 mb-4">
+      <h3>{{ meal_plan.name }}</h3>
+      <p>Start Date: {{ meal_plan.start_date }}</p>
+      <p>End Date: {{ meal_plan.end_date }}</p>
+      <div class="bg-dark row mt-5 mb-2">
+        <a
+          href="{% url 'meal_plans:add_meal' meal_plan.id %}"
+          class="btn btn-success d-block col-sm-3"
+          >Add Meal</a
+        >
+
+        <a
+          href="{% url 'meal_plans:meal_plan_detail' meal_plan.id %}"
+          class="btn btn-success d-block col-sm-3 ml-2"
+          >View Plan Details</a
+        >
+        <a
+          href="{% url 'meal_plans:meal_plan_update' meal_plan.id %}"
+          class="btn btn-success d-block col-sm-3"
+          >Update Plan</a
+        >
+        <a
+          href="{% url 'meal_plans:meal_plan_delete' meal_plan.id %}"
+          class="btn btn-success d-block col-sm-3"
+          >Delete Plan</a
+        >
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 {% else %}
 <p>No meal plans available.</p>
 {% endif %}
 
-<a href="{% url 'meal_plans:meal_plan_create' %}" class="btn btn-info"
+<a href="{% url 'meal_plans:meal_plan_create' %}" class="btn btn-outline-light"
   >Create New Meal Plan</a
 >
 <p></p>

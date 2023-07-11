@@ -6,7 +6,11 @@
 
 <p>Are you sure you want to delete the meal {{ meal.meal_name }}?</p>
 
-<form method="post" class="tex-center">
+<form
+  method="post"
+  class="tex-center"
+  action="{% url 'meal_plans:meal_delete' meal.id %}"
+>
   {% csrf_token %}
   <button type="submit" class="btn btn-md btn-info">Delete</button>
   <a href="{% url 'meal_plans:meal_list'%}" class="btn btn-secondary">Cancel</a>

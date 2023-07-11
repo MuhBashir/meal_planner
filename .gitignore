@@ -1,3 +1,4 @@
 meal_planner_env
 pycache__/
 *.sqlite3
+.env
