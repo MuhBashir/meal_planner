@@ -15,6 +15,7 @@
     <p>End Date: {{ meal_plan.end_date }}</p>
   </div>
 </div>
+{% if meal_plan %}
 <div class="row p-3">
   {% for meal in meal_plan.meal_set.all %}
   <div class="col-md-4 bg-light mb-3 ml-3 p-3">
@@ -47,13 +48,18 @@
     </div>
   </div>
   {% endfor %}
-</div>
-<div>
+
+   <div>
+   
     <a
       href="{% url 'meal_plans:add_meal' meal_plan_id=meal_plan.id %}"
       class="btn btn-outline-light"
       >Add Meal</a
     >
-  </div>
+   </div>
 
+</div>
+{% else %}
+
+{% endif %}
 {% endblock content %}
