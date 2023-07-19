@@ -7,18 +7,20 @@ from itertools import groupby
 from operator import attrgetter
 import datetime
 import environ
-import dj_database_url
 
+# environment variable
 env = environ.Env()
 environ.Env.read_env()
 
 
 
 def index(request):
+    # index page
     return render(request, "meal_plans/index.html")
 
 @login_required
 def meal_plan_list(request):
+    # get all plans
     meal_plans = MealPlan.objects.filter(user=request.user)
     context = {'meal_plans': meal_plans}
     return render(request, 'meal_plans/meal_plan_list.html', context)
@@ -26,6 +28,7 @@ def meal_plan_list(request):
 
 @login_required
 def meal_plan_detail(request, pk):
+    # get all meals
     meal_plan = get_object_or_404(MealPlan, pk=pk, user=request.user)
     meals = meal_plan.meal_set.all()
     now = datetime.date.today()
@@ -35,6 +38,10 @@ def meal_plan_detail(request, pk):
 
 @login_required
 def meal_plan_create(request):
+    """
+    creating a meal plan and attached it to the user
+    that own the data.
+    """
     if request.method == 'POST':
         form = MealPlanForm(request.POST)
         if form.is_valid():
@@ -50,6 +57,9 @@ def meal_plan_create(request):
 
 @login_required
 def meal_plan_update(request, pk):
+    """
+    updating the meal plan
+    """
     meal_plan = get_object_or_404(MealPlan, pk=pk, user=request.user)
     if request.method == 'POST':
         form = MealPlanForm(request.POST, instance=meal_plan)
@@ -64,6 +74,9 @@ def meal_plan_update(request, pk):
 
 @login_required
 def meal_plan_delete(request, pk):
+    """
+    updating a meal base on the request of the user
+    """
     meal_plan = get_object_or_404(MealPlan, pk=pk, user=request.user)
     if request.method == 'POST':
         meal_plan.delete()
@@ -74,6 +87,9 @@ def meal_plan_delete(request, pk):
 
 @login_required
 def add_meal(request, meal_plan_id):
+    """
+    add a meal to the meal plan
+    """
     meal_plan = get_object_or_404(MealPlan, pk=meal_plan_id, user=request.user)
     if request.method == 'POST':
         form = MealForm(request.POST)
@@ -91,6 +107,10 @@ def add_meal(request, meal_plan_id):
 
 @login_required
 def meal_list_view(request):
+    """
+    The view is meant to meal list added by the user
+    """
+
     meals = Meal.objects.filter(meal_plan__user=request.user)
 
     meal_groups =[]
@@ -112,6 +132,9 @@ def meal_list_view(request):
 
 @login_required
 def meal_update(request, meal_id):
+    """
+    updating the meal added by the user
+    """
     meal = get_object_or_404(Meal, pk=meal_id, meal_plan__user=request.user)
     if request.method == 'POST':
         form = MealForm(request.POST, instance=meal)
@@ -126,6 +149,9 @@ def meal_update(request, meal_id):
 
 @login_required
 def meal_delete(request, meal_id):
+    """
+    deleting a meal base on the request of the user
+    """
     meal = get_object_or_404(Meal, pk=meal_id, meal_plan__user=request.user)
     if request.method == 'POST':
         meal.delete()
@@ -136,6 +162,9 @@ def meal_delete(request, meal_id):
 
 @login_required
 def recipe_create(request, meal_id):
+    """
+    create recipe base on the meal added by the user
+    """
     meal = get_object_or_404(Meal, pk=meal_id, meal_plan__user=request.user)
     if request.method == 'POST':
         form = RecipeForm(request.POST)
@@ -153,6 +182,9 @@ def recipe_create(request, meal_id):
 
 @login_required
 def recipe_update(request, recipe_id):
+    """
+    updating the recipe entered by the user
+    """
     recipe = get_object_or_404(Recipe, pk=recipe_id )
 
     if request.method == 'POST':
@@ -173,6 +205,9 @@ def recipe_update(request, recipe_id):
 
 @login_required
 def recipe_delete(request, recipe_id):
+    """
+    deleting a recipe entred by the user
+    """
     recipe = get_object_or_404(Recipe, id=recipe_id)
 
     if request.method == 'POST':
@@ -187,6 +222,9 @@ def recipe_delete(request, recipe_id):
 
 @login_required
 def recipe_detail(request, recipe_id):
+    """
+    shows the details entered by the user
+    """
     recipe = get_object_or_404(Recipe, id=recipe_id)
     
     context = {
@@ -198,7 +236,9 @@ def recipe_detail(request, recipe_id):
 
 
 def search_recipe(request):
-    
+    """
+    This views performs search operation perform by the user
+    """
     url =f"https://api.edamam.com/api/recipes/v2?type=public&q={request}&app_id={env('app_id')}&app_key={env('app_key')}"
 
     response = requests.get(url)
@@ -210,6 +250,9 @@ def search_recipe(request):
 
 
 def search_view(request):
+    """
+    shows the search perform by the user 
+    """
     if request.method == 'GET':
         query = request.GET.get('query')
         if query:

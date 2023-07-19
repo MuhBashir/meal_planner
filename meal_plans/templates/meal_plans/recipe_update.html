@@ -1,5 +1,11 @@
-{% extends 'meal_plans/base.html' %} {% block content %}
-<h2 class="">Update Recipe</h2>
+{% extends 'meal_plans/base.html' %} {% block page_header %}
+<div class="row p-4">
+  <div class="border-bottom bg-dark text-white text-center p-2 mb-2">
+    <h2>Update Recipes</h2>
+  </div>
+</div>
+{% endblock page_header %} {% block content %}
+
 <form method="POST" class="form-control">
   {% csrf_token %} {{ form.as_p }}
   <button type="submit">Save</button>

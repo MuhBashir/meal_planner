@@ -1,6 +1,13 @@
-{% extends 'meal_plans/base.html' %} {% block content %}
-<h2>Delete Recipe</h2>
-<p>Are you sure you want to delete the recipe for {{ meal.name }}?</p>
+{% extends 'meal_plans/base.html' %} {% block page_header %}
+<div class="row p-4">
+  <div class="border-bottom bg-dark text-white text-center p-2 mb-2">
+    <h2>Delete Recipes</h2>
+  </div>
+</div>
+{% endblock page_header %} {% block content %}
+<div class="bg-dark text-dark">
+  <p>Are you sure you want to delete the recipe for {{ meal.name }}?</p>
+</div>
 <form method="POST">
   {% csrf_token %}
   <button type="submit">Delete</button>

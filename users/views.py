@@ -65,5 +65,3 @@ def logout_view(request):
     logout(request)
     return render(request, "registration/loggedout.html")
 
-
-# search functionality
